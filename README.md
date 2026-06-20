@@ -206,7 +206,7 @@ Symfony API
 
 ## Time Spent
 
-Approximate time spent: ~X hours
+Approximate time spent: ~7 hours
 
 ---
 
