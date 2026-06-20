@@ -25,7 +25,7 @@ final class AccountController extends AbstractController
         $data = $request->getContent() ? json_decode($request->getContent(), true) : null;
         if (empty($data)) {
             return new JsonResponse([
-                'status' => 422,
+                'status' => 400,
                 'error' => 'MISSING_ACCOUNT_PAYLOAD',
                 'message' => [
                     'account_no' => null,
@@ -37,7 +37,7 @@ final class AccountController extends AbstractController
 
         if (!isset($data['initial_balance'])) {
             return new JsonResponse([
-                'status' => 422,
+                'status' => 400,
                 'error' => 'INVALID_BALANCE',
                 'message' => [
                     'account_no' => null,
@@ -49,7 +49,7 @@ final class AccountController extends AbstractController
 
         if (!is_numeric($data['initial_balance'])) {
             return new JsonResponse([
-                'status' => 422,
+                'status' => 400,
                 'error' => 'INVALID_BALANCE_VALUE',
                 'message' => [
                     'account_no' => null,
@@ -61,7 +61,7 @@ final class AccountController extends AbstractController
 
         if ($data['initial_balance'] < 0) {
             return new JsonResponse([
-                'status' => 422,
+                'status' => 400,
                 'error' => 'MINIMUM_REQUIRED_BALANCE',
                 'message' => [
                     'account_no' => null,

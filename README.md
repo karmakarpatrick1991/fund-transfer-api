@@ -31,7 +31,7 @@ A secure fund transfer API built with Symfony, MySQL, and Redis.
 ### Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/karmakarpatrick1991/fund-transfer-api
 cd fund-transfer-api
 ```
 
@@ -171,7 +171,56 @@ Request:
     "amount": 100
 }
 ```
+## API Response Format
 
+All APIs return a consistent JSON response structure:
+
+Success Response
+---
+```
+{
+    "status": 200,
+    "error": null,
+    "message": {
+        "account_no": 1,
+        "reference_no": "5f8e19d3172a8ead1338ecccbc80b304",
+        "balance": "1000.00",
+        "message": "Account info successfully retrieved."
+    }
+}
+```
+Error Response
+---
+```
+{
+    "status": 400,
+    "error": "INVALID_BALANCE_PAYLOAD",
+    "message": {
+        "account_no": null,
+        "reference_no": null,
+        "message": "Invalid Balance Payload/Balance must be numeric and greater than 0"
+    }
+}
+```
+COMMON ERROR CODES
+---
+## Common Error Codes
+
+| HTTP Status | Error Code               | Description                                               |
+|-------------|--------------------------|-----------------------------------------------------------|
+| 200         | SUCCESS                  | Successful Operation.                                     |
+| 400         | MISSING_ACCOUNT_PAYLOAD  | Account creation payload is missing.                      |
+| 400         | INVALID_BALANCE          | Required balance field is missing.                        |
+| 400         | INVALID_BALANCE_VALUE    | Balance value must be numeric.                            |
+| 400         | MINIMUM_REQUIRED_BALANCE | Initial balance must be greater than or equal to zero.    |
+| 400         | MISSING_UUID_REFERENCE   | Account reference UUID is missing.                        |
+| 400         | MISSING_BALANCE_PAYLOAD  | Update payload is missing.                                |
+| 400         | INVALID_BALANCE_PAYLOAD  | Balance must be numeric and greater than or equal to zero. |
+| 400         | MISSING_IDEMPOTENCY_KEY  | Idempotency-Key header is missing.                        |
+| 404         | ACCOUNT_NOT_FOUND        | Account does not exist.                                   |
+| 409         | DUPLICATE_TRANSACTION    | Transfer already processed with the same Idempotency-Key. |
+| 422         | INSUFFICIENT_FUNDS       | Source account has insufficient balance.                  |
+| 500         | INTERNAL_SERVER_ERROR    | Unexpected system error occurred.                         |
 ---
 
 ## Redis Usage
@@ -180,7 +229,7 @@ Redis is used for:
 
 - Idempotency key storage
 - Account data caching
-- Cache invalidation on account updates
+- Cache invalidation on account updates and transfers
 
 ---
 
@@ -220,7 +269,6 @@ AI tools used:
 AI was used to assist with:
 - Architecture discussions
 - Symfony setup guidance
-- Redis integration
 - Documentation preparation
 
 All generated code was reviewed, modified, tested, and validated manually.
