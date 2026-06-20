@@ -43,10 +43,11 @@ composer install
 
 ### Configure Environment
 
-Create `.env.local`
+rename file .env-backup as .env
+
 
 ```env
-DATABASE_URL="mysql://root:password@127.0.0.1:3306/paysera_transfer_db"
+DATABASE_URL="mysql://root:password@127.0.0.1:3306/{database_name}"
 REDIS_URL=redis://127.0.0.1:6379
 ```
 
@@ -111,7 +112,7 @@ Request:
     "initial_balance": 1000
 }
 ```
-
+![Architecture Diagram](assets/docs/img_1_create.png)
 ---
 
 ### Get Account
@@ -127,6 +128,7 @@ Example:
 ```http
 /app/account/5f8e19d3172a8ead1338ecccbc80b304
 ```
+![Architecture Diagram](assets/docs/img_2_view.png)
 
 ---
 
@@ -145,6 +147,7 @@ Request:
     "balance": 2000
 }
 ```
+![Architecture Diagram](assets/docs/img_3_update.png)
 
 ---
 
@@ -155,6 +158,7 @@ Request:
 ```http
 /app/transfer
 ```
+![Architecture Diagram](assets/docs/img_4_transfer.png)
 
 Headers:
 
@@ -163,6 +167,7 @@ Idempotency-Key: txn-123456
 ```
 
 Request:
+![Architecture Diagram](assets/docs/img_5_idempotency.png)
 
 ```json
 {
