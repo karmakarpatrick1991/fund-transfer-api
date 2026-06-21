@@ -58,7 +58,7 @@ php bin/console doctrine:database:create
 ```
 
 ### Run Migrations
-
+It will populate the necessary table named `accounts` and `transfer`
 ```bash
 php bin/console doctrine:migrations:migrate
 ```
@@ -90,7 +90,7 @@ symfony serve
 Application will be available at:
 
 ```text
-https://127.0.0.1:8000
+http://127.0.0.1:8000
 ```
 
 ---

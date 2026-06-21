@@ -16,10 +16,11 @@ class ApiExceptionSubscriber implements EventSubscriberInterface
 
     public function onException(ExceptionEvent $event)
     {
+
         $e = $event->getThrowable();
 
         $status = 500;
-        $message = 'Internal error';
+        $message = $e->getMessage();
 
         if ($e instanceof InsufficientFundsException) {
             $status = 422;
