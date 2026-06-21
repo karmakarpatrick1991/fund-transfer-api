@@ -6,6 +6,7 @@ use App\Entity\Account;
 use App\Repository\AccountRepository;
 use App\Service\RedisService;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,7 +15,8 @@ use Symfony\Component\Routing\Attribute\Route;
 final class AccountController extends AbstractController
 {
     public function __construct(
-        private RedisService $redis
+        private RedisService $redis,
+        private readonly LoggerInterface $logger
     )
     {
     }
@@ -70,12 +72,17 @@ final class AccountController extends AbstractController
                 ]
             ]);
         }
-
+        $this->logger->info('Account creation initiated', [
+            'message' => json_encode($data)
+        ]);
         $account = new Account();
         $account->setBalance($data['initial_balance']);
         $em->persist($account);
         $em->flush();
-
+        $this->logger->info('Account creation completed', [
+            'message' => json_encode($data),
+            'uuid' => $account->getUuid()
+        ]);
         return new JsonResponse([
             'status' => 200,
             'error' => null,
@@ -177,7 +184,15 @@ final class AccountController extends AbstractController
             ]);
         }
         if (isset($data['balance']) && is_numeric($data['balance']) && $data['balance'] >= 0) {
+            $this->logger->info('Account updated initiated', [
+                'message' => json_encode($data),
+                'uuid' => $account->getUuid()
+            ]);
             $account->setBalance($data['balance']);
+            $this->logger->info('Account updated completed', [
+                'message' => json_encode($data),
+                'uuid' => $account->getUuid()
+            ]);
             $this->redis->delete('account:' . $uuid,);
             $this->redis->set(
                 'account:' . $uuid,

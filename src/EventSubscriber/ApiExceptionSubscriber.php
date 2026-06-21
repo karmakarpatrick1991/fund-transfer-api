@@ -1,8 +1,8 @@
 <?php
 namespace App\EventSubscriber;
 
-use app\Exception\AccountNotFoundException;
-use app\Exception\InsufficientFundsException;
+use App\Exception\AccountNotFoundException;
+use App\Exception\InsufficientFundsException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\KernelEvents;

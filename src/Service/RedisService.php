@@ -15,8 +15,10 @@ class RedisService
                 $_ENV['REDIS_URL']
             );
         }catch (\Throwable $e){
-            var_dump($e->getMessage());
-            die;
+            throw new \RuntimeException(
+                'Redis connection failed',
+                previous: $e
+            );
         }
     }
 

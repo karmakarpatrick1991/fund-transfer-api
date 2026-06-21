@@ -52,7 +52,7 @@ REDIS_URL=redis://127.0.0.1:6379
 ```
 
 ### Create Database
-
+Create a database of your choice and place the database name in the DATABASE_URL="" as mentioned above
 ```bash
 php bin/console doctrine:database:create
 ```
@@ -90,9 +90,9 @@ symfony serve
 Application will be available at:
 
 ```text
-http://127.0.0.1:8000
+http://127.0.0.1:8000/
 ```
-
+![Architecture Diagram](assets/docs/img_0_home.png)
 ---
 
 ## API Usage
@@ -260,7 +260,7 @@ Symfony API
 
 ## Time Spent
 
-Approximate time spent: ~7 hours
+Approximate time spent: ~ 7 - 8 hours
 
 ---
 
@@ -273,7 +273,6 @@ AI tools used:
 
 AI was used to assist with:
 - Architecture discussions
-- Symfony setup guidance
 - Documentation preparation
 
 All generated code was reviewed, modified, tested, and validated manually.

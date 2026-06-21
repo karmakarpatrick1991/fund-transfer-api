@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\RedisService;
 use App\Service\TransferService;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
@@ -12,7 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 final class TransferController extends AbstractController
 {
     public function __construct(
-        private RedisService $redis
+        private RedisService $redis,
+        private readonly LoggerInterface $logger
     )
     {
     }
@@ -37,12 +39,24 @@ final class TransferController extends AbstractController
             ]);
         }
         try {
+            $this->logger->info('Transfer initiated', [
+                'source' => $request_payload['source_account_id'],
+                'destination' => $request_payload['destination_account_id'],
+                'amount' => $request_payload['amount'],
+                'key'=>$idempotency_key
+            ]);
             $transfer = $service->transfer(
                 $request_payload['source_account_id'],
                 $request_payload['destination_account_id'],
                 $request_payload['amount'],
                 $idempotency_key
             );
+            $this->logger->info('Transfer completed', [
+                'source' => $request_payload['source_account_id'],
+                'destination' => $request_payload['destination_account_id'],
+                'amount' => $request_payload['amount'],
+                'reference_number'=>$transfer->getUuid()
+            ]);
         } catch (\Exception $e) {
             $error_details = json_decode($e->getMessage(),true);
             return new JsonResponse([
@@ -57,5 +71,6 @@ final class TransferController extends AbstractController
             "error" => null,
             "message" => "Fund transfer completed successfully with reference number: ".$transfer->getUuid()
         ]);
+
     }
 }
