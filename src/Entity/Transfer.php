@@ -26,16 +26,16 @@ class Transfer
     private string $amount;
 
     #[ORM\Column(name: 'source_balance_before', type: 'decimal', precision: 18, scale: 2)]
-    private int $sourceBalanceBefore;
+    private string $sourceBalanceBefore;
 
     #[ORM\Column(name: 'source_balance_after', type: 'decimal', precision: 18, scale: 2)]
-    private int $sourceBalanceAfter;
+    private string $sourceBalanceAfter;
 
     #[ORM\Column(name: 'destination_balance_before', type: 'decimal', precision: 18, scale: 2)]
-    private int $destinationBalanceBefore;
+    private string $destinationBalanceBefore;
 
     #[ORM\Column(name: 'destination_balance_after', type: 'decimal', precision: 18, scale: 2)]
-    private int $destinationBalanceAfter;
+    private string $destinationBalanceAfter;
 
 
     #[ORM\Column(length: 30)]
