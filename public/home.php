@@ -226,7 +226,6 @@
     </div>
 </section>
 <div class="footer">
-    <img src="/assets/logo.png" alt="Fund Transfer API Logo" style="height:20px;display:block;margin:0 auto 12px;"><br>
     Fund Transfer API •
      Pratik Karmakar
 
