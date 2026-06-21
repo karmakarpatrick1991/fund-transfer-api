@@ -16,6 +16,14 @@ A secure fund transfer API built with Symfony, MySQL, and Redis.
 
 ---
 
+## Design Decisions
+
+- Doctrine transactions ensure atomic transfers.
+- Pessimistic locking prevents race conditions.
+- Redis-backed idempotency prevents duplicate requests.
+- Transfer audit records maintain traceability.
+- BCMath is used for monetary calculations.
+
 ## Requirements
 
 - PHP 8.3+
