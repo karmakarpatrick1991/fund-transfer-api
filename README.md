@@ -286,3 +286,15 @@ AI was used to assist with:
 All generated code was reviewed, modified, tested, and validated manually.
 
 ---
+##  Future Improvements
+
+* Enhanced Validation & API Documentation
+  Introduce Request DTOs, Symfony Validator constraints, and OpenAPI/Swagger documentation for improved API usability and maintainability.
+* Improved Security
+  Add authentication, authorization, rate limiting, and stronger idempotency key management to further secure financial transactions.
+* Scalability & Performance
+  Introduce asynchronous processing with Symfony Messenger, distributed locking, and advanced caching strategies for high-volume workloads.
+* Observability & Monitoring
+  Implement structured logging, metrics collection, health checks, and monitoring dashboards to improve operational visibility.
+* Infrastructure & Automation
+  Add Docker support, CI/CD pipelines, automated deployment workflows, and load testing to enhance production readiness.
